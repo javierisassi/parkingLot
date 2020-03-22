@@ -24,7 +24,7 @@ class Cars : public std::vector<T>
 
 class Car{
     public:
-        enum eCarType{ eStandard, eElectric, eHandicap, eCompact };
+        enum eCarType{ eStandard, eElectric, ehandycap, eCompact };
         Car( eCarType carType ){
             _carType = carType;
         }
@@ -54,8 +54,8 @@ class ParkingLot{
             Car tCar(Car::eCompact);
             lot.push_back(tCar);
 	}
-        void enterHandicapped() {
-            Car tCar(Car::eHandicap);
+        void enterhandycapped() {
+            Car tCar(Car::ehandycap);
             lot.push_back(tCar);
 	}
 
@@ -72,8 +72,8 @@ class ParkingLot{
             Car car(Car::eCompact);
             discard(car);
         }
-        void exitHandicapped() {
-            Car car(Car::eHandicap); 
+        void exithandycapped() {
+            Car car(Car::ehandycap); 
             discard(car);
         }
         void discard(Car &car) {
@@ -82,7 +82,7 @@ class ParkingLot{
                 lot.erase(it);
         }
         struct Status { int total; int stand; int elect; int comp; 
-            int handi; };
+            int handy; };
         Status getStatus(){
             Status status = {0};
             status.total = lot.size();
@@ -91,7 +91,7 @@ class ParkingLot{
                     it != lot.end(); it++) {
                 if (it->getCarType() == Car::eStandard )status.stand++;		
                 if (it->getCarType() == Car::eElectric )status.elect++;		
-                if (it->getCarType() == Car::eHandicap )status.handi++;		
+                if (it->getCarType() == Car::ehandycap )status.handy++;		
                 if (it->getCarType() == Car::eCompact )status.comp++;		
             }
             return status;
@@ -162,7 +162,7 @@ int main ( void ) {
     }
 
     // TEST 6. Mix and match, lets park all kind of cars
-    // 9 standard 13 electric 7 handicapped 17 compact
+    // 9 standard 13 electric 7 handycapped 17 compact
     {
 	ParkingLot pklot( 100 );
         for ( int i = 0; i < 9; ++i)
@@ -170,20 +170,20 @@ int main ( void ) {
         for ( int i = 0; i < 13; ++i)
             pklot.enterElectric();
         for ( int i = 0; i < 7; ++i)
-            pklot.enterHandicapped();
+            pklot.enterhandycapped();
         for ( int i = 0; i < 17; ++i)
             pklot.enterCompact();
 	ParkingLot::Status status = pklot.getStatus();
 	if ( status.stand == 9 &&
              status.elect == 13 &&
-             status.handi == 7 &&
+             status.handy == 7 &&
              status.comp == 17 ) 
            std::cout << "TEST 6 PASS " << std::endl;
 	else std::cout << "TEST 6 FAIL " << status.total << std::endl;
     }
 
     // TEST 7. LAST test
-    // 9 standard 13 electric 7 handicapped 17 compact exit 2 handi 4 compact
+    // 9 standard 13 electric 7 handycapped 17 compact exit 2 handy 4 compact
     {
 	ParkingLot pklot( 100 );
         for ( int i = 0; i < 9; ++i)
@@ -191,17 +191,17 @@ int main ( void ) {
         for ( int i = 0; i < 13; ++i)
             pklot.enterElectric();
         for ( int i = 0; i < 7; ++i)
-            pklot.enterHandicapped();
+            pklot.enterhandycapped();
         for ( int i = 0; i < 17; ++i)
             pklot.enterCompact();
         for ( int i = 0; i < 2; ++i)
-            pklot.exitHandicapped();
+            pklot.exithandycapped();
         for ( int i = 0; i < 4; ++i)
             pklot.exitCompact();
 	ParkingLot::Status status = pklot.getStatus();
 	if ( status.stand == 9 &&
              status.elect == 13 &&
-             status.handi == 5 &&
+             status.handy == 5 &&
              status.comp == 13 &&
              status.total == 40) 
            std::cout << "TEST 7 PASS " << std::endl;
